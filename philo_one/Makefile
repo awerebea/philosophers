@@ -6,7 +6,7 @@
 #    By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/26 12:37:33 by awerebea          #+#    #+#              #
-#    Updated: 2020/10/27 15:08:00 by awerebea         ###   ########.fr        #
+#    Updated: 2020/10/27 22:33:22 by awerebea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,14 @@ OBJDIR		= objs/
 
 FLSDIR_1	= ./
 FLS_1		= $(addprefix $(FLSDIR_1), \
+				init \
 				main )
 FLSDIR_2	= tools/
 FLS_2		= $(addprefix $(FLSDIR_2), \
+				ft_atoi \
 				ft_isdigit \
 				ft_putchar_fd \
+				ft_putnbr_fd \
 				ft_putstr_fd )
 
 SRC	= $(FLS_1) $(FLS_2)

@@ -12,6 +12,6 @@ CMakeLists.txt
 cmake-build-debug/
 objs/
 vgcore.*
-philo_one
-philo_two
-philo_three
+philo_one/philo_one
+philo_two/philo_two
+philo_three/philo_three

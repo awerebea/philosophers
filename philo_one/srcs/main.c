@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:36:48 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/27 22:47:31 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/27 22:48:55 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ int				check_arguments(int argc, char **argv)
 
 int				main(int argc, char **argv)
 {
-	(void)argv;
+	t_data		data;
+
 	if (check_arguments(argc, argv))
+		return (1);
+	if (init_data(&data, argv))
 		return (1);
 	return (0);
 }
