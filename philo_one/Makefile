@@ -6,7 +6,7 @@
 #    By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/26 12:37:33 by awerebea          #+#    #+#              #
-#    Updated: 2020/10/26 12:40:09 by awerebea         ###   ########.fr        #
+#    Updated: 2020/10/27 15:08:00 by awerebea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,13 @@ OBJDIR		= objs/
 FLSDIR_1	= ./
 FLS_1		= $(addprefix $(FLSDIR_1), \
 				main )
+FLSDIR_2	= tools/
+FLS_2		= $(addprefix $(FLSDIR_2), \
+				ft_isdigit \
+				ft_putchar_fd \
+				ft_putstr_fd )
 
-SRC	= $(FLS_1)
+SRC	= $(FLS_1) $(FLS_2)
 
 OBJ	= $(addprefix $(OBJDIR), $(SRC:=.o))
 DFLS	= $(SRC:=.d)
@@ -40,7 +45,7 @@ $(NAME):	$(OBJ)
 	@echo '------------- All done! --------------'
 
 $(OBJ):		$(OBJDIR)%.o: $(SRCDIR)%.c
-	mkdir -p	$(OBJDIR) $(addprefix $(OBJDIR), $(FLSDIR_1))
+	mkdir -p	$(OBJDIR) $(addprefix $(OBJDIR), $(FLSDIR_1) $(FLSDIR_2))
 	$(CC)		$(FLAGS) $(INCLUDES) -c $< -o $@ -MMD
 
 include $(wildcard $(addprefix $(OBJDIR), $(DFLS)))

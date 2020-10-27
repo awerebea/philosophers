@@ -1,0 +1,17 @@
+*.DS_Store
+*.[doa]
+*.dSYM/
+*.log
+*.swo
+*.swp
+.DS_Store
+.fuse_hidden*
+.idea
+.vscode
+CMakeLists.txt
+cmake-build-debug/
+objs/
+vgcore.*
+philo_one
+philo_two
+philo_three
