@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 14:04:02 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/28 22:53:19 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/28 23:28:55 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		print_msg(t_ph *ph, char *msg)
 		pthread_mutex_unlock(&ph->data->mtx_out);
 		return ;
 	}
-	ft_putnbr_fd(get_time_in_ms() - ph->tm_sim_start, 1);
+	ft_putnbr_fd(get_time_in_ms() - ph->simulation_start_time, 1);
 	ft_putchar_fd(' ', 1);
 	ft_putnbr_fd(ph->id, 1);
 	ft_putchar_fd(' ', 1);
@@ -56,9 +56,9 @@ static void		take_forks_and_eat(t_ph *ph)
 	forks[0] = ph->id - 1;
 	forks[1] = ph->id % ph->data->num_of_ph;
 	if (!(ph->id % 2) && take_forks_assist(ph, forks[0], forks[1]))
-			return ;
+		return ;
 	else if ((ph->id % 2) && take_forks_assist(ph, forks[1], forks[0]))
-			return ;
+		return ;
 	if (ph->data->ph_died)
 	{
 		pthread_mutex_unlock(&ph->data->mtx_forks[forks[0]]);
@@ -67,9 +67,9 @@ static void		take_forks_and_eat(t_ph *ph)
 	}
 	print_msg(ph, "is eating\n");
 	pthread_mutex_lock(&ph->data->mtx_time);
-	ph->tm_meal = get_time_in_ms();
+	ph->eat_last_time = get_time_in_ms();
 	pthread_mutex_unlock(&ph->data->mtx_time);
-	usleep(ph->data->tm_to_eat * 1000);
+	usleep(ph->data->time_to_eat * 1000);
 	pthread_mutex_unlock(&ph->data->mtx_forks[forks[0]]);
 	pthread_mutex_unlock(&ph->data->mtx_forks[forks[1]]);
 }
@@ -80,14 +80,14 @@ static void		*check_death(void *arg)
 
 	ph = (t_ph*)arg;
 	pthread_mutex_lock(&ph->data->mtx_time);
-	while (get_time_in_ms() - ph->tm_meal < ph->data->tm_to_die)
+	while (get_time_in_ms() - ph->eat_last_time < ph->data->time_to_die)
 	{
 		pthread_mutex_unlock(&ph->data->mtx_time);
 		usleep(1000);
 		pthread_mutex_lock(&ph->data->mtx_time);
 	}
 	pthread_mutex_unlock(&ph->data->mtx_time);
-	if (!ph->num_to_eat)
+	if (!ph->times_to_eat)
 		return (NULL);
 	pthread_mutex_lock(&ph->data->mtx_death);
 	if (ph->data->ph_died)
@@ -107,18 +107,18 @@ void			*simulation(void *arg)
 	pthread_t	death_thread;
 
 	ph = (t_ph*)arg;
-	ph->tm_sim_start = get_time_in_ms();
-	ph->tm_meal = ph->tm_sim_start; 
+	ph->simulation_start_time = get_time_in_ms();
+	ph->eat_last_time = ph->simulation_start_time;
 	pthread_create(&death_thread, NULL, check_death, ph);
-	while (ph->num_to_eat)
+	while (ph->times_to_eat)
 	{
 		if (ph->data->ph_died)
 			break ;
 		take_forks_and_eat(ph);
-		if (ph->num_to_eat > 0)
-			ph->num_to_eat--;
+		if (ph->times_to_eat > 0)
+			ph->times_to_eat--;
 		print_msg(ph, "is sleeping\n");
-		usleep(ph->data->tm_to_slp * 1000);
+		usleep(ph->data->time_to_sleep * 1000);
 		if (ph->data->ph_died)
 			break ;
 		print_msg(ph, "is thinking\n");

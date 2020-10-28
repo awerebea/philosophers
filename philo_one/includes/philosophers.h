@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:37:46 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/28 23:02:20 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/28 23:27:25 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 typedef struct	s_data
 {
 	int				num_of_ph;
-	int				tm_to_die;
-	int				tm_to_eat;
-	int				tm_to_slp;
-	int				num_to_eat;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				times_to_eat;
 	int				ph_died;
 	pthread_mutex_t	*mtx_forks;
 	pthread_mutex_t	mtx_death;
@@ -32,9 +32,9 @@ typedef struct	s_data
 typedef struct	s_ph
 {
 	int				id;
-	int				tm_sim_start;
-	int				tm_meal;
-	int				num_to_eat;
+	int				simulation_start_time;
+	int				eat_last_time;
+	int				times_to_eat;
 	t_data			*data;
 }				t_ph;
 

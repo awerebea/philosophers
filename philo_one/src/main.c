@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:36:48 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/28 23:02:03 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/28 23:27:33 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ static int		init_data(t_data *data, char **argv)
 	i = 0;
 	if (!(data->num_of_ph = ft_atoi(argv[1])))
 		return (ret_msg("error: there must be at least one philosopher\n", 1));
-	data->tm_to_die = ft_atoi(argv[2]);
-	data->tm_to_eat = ft_atoi(argv[3]);
-	data->tm_to_slp = ft_atoi(argv[4]);
-	data->num_to_eat = (argv[5]) ? ft_atoi(argv[5]) : -1;
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	data->times_to_eat = (argv[5]) ? ft_atoi(argv[5]) : -1;
 	data->ph_died = 0;
 	if (!(data->mtx_forks = (pthread_mutex_t*)malloc(sizeof(pthread_mutex_t) * \
 			data->num_of_ph)))
