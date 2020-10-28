@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   get_time_in_ms.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/04 12:37:17 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/27 14:45:29 by awerebea         ###   ########.fr       */
+/*   Created: 2020/10/28 18:07:00 by awerebea          #+#    #+#             */
+/*   Updated: 2020/10/28 23:00:44 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include <sys/time.h>
+#include <stdlib.h>
 
-void	ft_putchar_fd(char c, int fd)
+unsigned long		get_time_in_ms(void)
 {
-	write(fd, &c, 1);
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (((time.tv_sec) * 1000) + ((time.tv_usec) / 1000));
 }

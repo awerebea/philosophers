@@ -6,11 +6,12 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:36:48 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/27 22:48:55 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/28 23:02:03 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <stdlib.h>
 
 int				ret_msg(char *str, int errcode)
 {
@@ -22,7 +23,7 @@ int				ret_msg(char *str, int errcode)
 	return (errcode);
 }
 
-int				is_positive_dec_int(char *str)
+static int		is_positive_dec_int(char *str)
 {
 	int			i;
 
@@ -37,7 +38,7 @@ int				is_positive_dec_int(char *str)
 	return (0);
 }
 
-int				check_arguments(int argc, char **argv)
+static int		check_arguments(int argc, char **argv)
 {
 	int			i;
 	int			flag;
@@ -63,6 +64,29 @@ int				check_arguments(int argc, char **argv)
 	return (0);
 }
 
+static int		init_data(t_data *data, char **argv)
+{
+	int			i;
+
+	i = 0;
+	if (!(data->num_of_ph = ft_atoi(argv[1])))
+		return (ret_msg("error: there must be at least one philosopher\n", 1));
+	data->tm_to_die = ft_atoi(argv[2]);
+	data->tm_to_eat = ft_atoi(argv[3]);
+	data->tm_to_slp = ft_atoi(argv[4]);
+	data->num_to_eat = (argv[5]) ? ft_atoi(argv[5]) : -1;
+	data->ph_died = 0;
+	if (!(data->mtx_forks = (pthread_mutex_t*)malloc(sizeof(pthread_mutex_t) * \
+			data->num_of_ph)))
+		return (ret_msg("error: malloc fails\n", 1));
+	while (i < data->num_of_ph)
+		pthread_mutex_init(&data->mtx_forks[i++], NULL);
+	pthread_mutex_init(&data->mtx_death, NULL);
+	pthread_mutex_init(&data->mtx_out, NULL);
+	pthread_mutex_init(&data->mtx_time, NULL);
+	return (0);
+}
+
 int				main(int argc, char **argv)
 {
 	t_data		data;
@@ -71,5 +95,9 @@ int				main(int argc, char **argv)
 		return (1);
 	if (init_data(&data, argv))
 		return (1);
+	start_threads(&data);
+	pthread_mutex_destroy(&data.mtx_death);
+	pthread_mutex_destroy(&data.mtx_out);
+	pthread_mutex_destroy(&data.mtx_time);
 	return (0);
 }

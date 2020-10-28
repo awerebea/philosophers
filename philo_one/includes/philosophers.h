@@ -6,15 +6,13 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:37:46 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/27 22:27:28 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/28 23:02:20 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <unistd.h>
-# include <stdlib.h>
 # include <pthread.h>
 
 typedef struct	s_data
@@ -31,12 +29,23 @@ typedef struct	s_data
 	pthread_mutex_t	mtx_time;
 }				t_data;
 
+typedef struct	s_ph
+{
+	int				id;
+	int				tm_sim_start;
+	int				tm_meal;
+	int				num_to_eat;
+	t_data			*data;
+}				t_ph;
+
 int				ft_atoi(char *str);
 int				ft_isdigit(int c);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putstr_fd(char *s, int fd);
-int				init_data(t_data *data, char **argv);
+int				get_time_in_ms(void);
 int				ret_msg(char *str, int errcode);
+void			*simulation(void *arg);
+int				start_threads(t_data *data);
 
 #endif

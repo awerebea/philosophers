@@ -6,34 +6,36 @@
 #    By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/26 12:37:33 by awerebea          #+#    #+#              #
-#    Updated: 2020/10/27 22:33:22 by awerebea         ###   ########.fr        #
+#    Updated: 2020/10/28 23:01:19 by awerebea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo_one
 INCLUDES	= -I includes/
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -pthread
 OFLAGS		= -O2
 DBGFLAGS	= -g
 
 override FLAGS ?= $(CFLAGS)
 
 #------------------------------- minishell compiling ---------------------------
-SRCDIR		= srcs/
-OBJDIR		= objs/
+SRCDIR		= src/
+OBJDIR		= obj/
 
 FLSDIR_1	= ./
 FLS_1		= $(addprefix $(FLSDIR_1), \
-				init \
-				main )
+				main \
+				simulation \
+				threads )
 FLSDIR_2	= tools/
 FLS_2		= $(addprefix $(FLSDIR_2), \
 				ft_atoi \
 				ft_isdigit \
 				ft_putchar_fd \
 				ft_putnbr_fd \
-				ft_putstr_fd )
+				ft_putstr_fd \
+				get_time_in_ms )
 
 SRC	= $(FLS_1) $(FLS_2)
 
