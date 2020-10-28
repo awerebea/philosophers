@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 14:04:02 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/28 23:28:55 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/29 00:12:38 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ static int		take_forks_assist(t_ph *ph, int ffork, int sfork)
 		return (1);
 	}
 	print_msg(ph, "has taken a fork\n");
+	if (ph->data->num_of_ph == 1)
+	{
+		while (!ph->data->ph_died)
+			usleep(1000);
+		return (1);
+	}
 	pthread_mutex_lock(&ph->data->mtx_forks[sfork]);
 	if (ph->data->ph_died)
 	{
