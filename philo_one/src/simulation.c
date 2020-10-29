@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 14:04:02 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/29 00:12:38 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/30 00:37:48 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 static void		print_msg(t_ph *ph, char *msg)
 {
-	pthread_mutex_lock(&ph->data->mtx_out);
+	pthread_mutex_lock(&ph->data->mtx_print);
 	if (ph->data->ph_died)
 	{
-		pthread_mutex_unlock(&ph->data->mtx_out);
+		pthread_mutex_unlock(&ph->data->mtx_print);
 		return ;
 	}
 	ft_putnbr_fd(get_time_in_ms() - ph->simulation_start_time, 1);
@@ -26,7 +26,7 @@ static void		print_msg(t_ph *ph, char *msg)
 	ft_putnbr_fd(ph->id, 1);
 	ft_putchar_fd(' ', 1);
 	ft_putstr_fd(msg, 1);
-	pthread_mutex_unlock(&ph->data->mtx_out);
+	pthread_mutex_unlock(&ph->data->mtx_print);
 }
 
 static int		take_forks_assist(t_ph *ph, int ffork, int sfork)

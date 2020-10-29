@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:37:46 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/28 23:27:25 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/30 00:37:21 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct	s_data
 	int				ph_died;
 	pthread_mutex_t	*mtx_forks;
 	pthread_mutex_t	mtx_death;
-	pthread_mutex_t	mtx_out;
+	pthread_mutex_t	mtx_print;
 	pthread_mutex_t	mtx_time;
 }				t_data;
 

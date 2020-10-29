@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:36:48 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/29 11:49:51 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/30 00:37:39 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int		init_data(t_data *data, char **argv)
 	while (i < data->num_of_ph)
 		pthread_mutex_init(&data->mtx_forks[i++], NULL);
 	pthread_mutex_init(&data->mtx_death, NULL);
-	pthread_mutex_init(&data->mtx_out, NULL);
+	pthread_mutex_init(&data->mtx_print, NULL);
 	pthread_mutex_init(&data->mtx_time, NULL);
 	return (0);
 }
@@ -97,7 +97,7 @@ int				main(int argc, char **argv)
 		return (1);
 	start_threads(&data);
 	pthread_mutex_destroy(&data.mtx_death);
-	pthread_mutex_destroy(&data.mtx_out);
+	pthread_mutex_destroy(&data.mtx_print);
 	pthread_mutex_destroy(&data.mtx_time);
 	free(data.mtx_forks);
 	return (0);
