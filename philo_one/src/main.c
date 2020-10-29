@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:36:48 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/28 23:27:33 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:49:51 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ int				main(int argc, char **argv)
 	pthread_mutex_destroy(&data.mtx_death);
 	pthread_mutex_destroy(&data.mtx_out);
 	pthread_mutex_destroy(&data.mtx_time);
+	free(data.mtx_forks);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:47:32 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/28 23:28:36 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:50:39 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ int				start_threads(t_data *data)
 		pthread_mutex_destroy(&data->mtx_forks[i]);
 		i++;
 	}
+	free(ph);
+	free(threads);
 	return (0);
 }
