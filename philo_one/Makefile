@@ -6,7 +6,7 @@
 #    By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/26 12:37:33 by awerebea          #+#    #+#              #
-#    Updated: 2020/10/28 23:01:19 by awerebea         ###   ########.fr        #
+#    Updated: 2020/10/29 19:16:52 by awerebea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ DBGFLAGS	= -g
 
 override FLAGS ?= $(CFLAGS)
 
-#------------------------------- minishell compiling ---------------------------
+#------------------------------- philo_one compiling ---------------------------
 SRCDIR		= src/
 OBJDIR		= obj/
 
@@ -58,31 +58,28 @@ include $(wildcard $(addprefix $(OBJDIR), $(DFLS)))
 clean:
 	rm -rf	$(OBJDIR)
 
-clean_all: clean libft_clean
-
 fclean:	clean
 	rm -f	$(NAME)
-
-fclean_all: fclean libft_fclean
 
 debug:
 	make FLAGS="$(CFLAGS) $(DBGFLAGS)" all
 
 run: all
-	./$(NAME)
+	./$(NAME) 20 200 75 75
 
 test: debug
-	# valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME)
-	./$(NAME)
+	./$(NAME) 20 200 75 75
+
+test_valgrind: debug
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 50 200 50 50 8
 
 re:	fclean all
 
 .PHONY:	all \
 	clean \
-	clean_all \
-	fclean \
-	fclean_all \
 	debug \
+	fclean \
+	re \
 	run \
-	run_debug \
-	re
+	test \
+	test_valgrind
