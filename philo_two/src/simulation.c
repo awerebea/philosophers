@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 14:04:02 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/30 16:42:45 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/31 21:18:53 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int		take_forks_assist(t_ph *ph)
 	if (ph->data->num_of_ph == 1)
 	{
 		while (!ph->data->ph_died)
-			usleep(1000);
+			usleep(100);
 		return (1);
 	}
 	sem_wait(ph->data->sem_forks);
@@ -73,7 +73,7 @@ static void		take_forks_and_eat(t_ph *ph)
 	sem_wait(ph->data->sem_time);
 	ph->eat_last_time = get_time_in_ms();
 	sem_post(ph->data->sem_time);
-	usleep(ph->data->time_to_eat * 1000);
+	f_sleep(ph->data->time_to_eat);
 	sem_post(ph->data->sem_forks);
 	sem_post(ph->data->sem_forks);
 }
@@ -84,10 +84,10 @@ static void		*check_death(void *arg)
 
 	ph = (t_ph*)arg;
 	sem_wait(ph->data->sem_time);
-	while (get_time_in_ms() - ph->eat_last_time < ph->data->time_to_die)
+	while (get_time_in_ms() - ph->eat_last_time <= ph->data->time_to_die)
 	{
 		sem_post(ph->data->sem_time);
-		usleep(1000);
+		usleep(100);
 		sem_wait(ph->data->sem_time);
 	}
 	sem_post(ph->data->sem_time);
@@ -122,7 +122,7 @@ void			*simulation(void *arg)
 		if (ph->times_to_eat > 0)
 			ph->times_to_eat--;
 		print_msg(ph, "is sleeping\n");
-		usleep(ph->data->time_to_sleep * 1000);
+		f_sleep(ph->data->time_to_sleep);
 		if (ph->data->ph_died)
 			break ;
 		print_msg(ph, "is thinking\n");
