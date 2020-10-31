@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_time_in_ms.c                                   :+:      :+:    :+:   */
+/*   f_sleep.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 18:07:00 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/31 21:06:24 by awerebea         ###   ########.fr       */
+/*   Created: 2020/10/31 21:05:54 by awerebea          #+#    #+#             */
+/*   Updated: 2020/10/31 21:13:46 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/time.h>
-#include <stdlib.h>
+#include "philosophers.h"
+#include <unistd.h>
 
-unsigned long		get_time_in_ms(void)
+void				f_sleep(int t)
 {
-	struct timeval	time;
+	int				delta;
+	int				start;
 
-	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	start = get_time_in_ms();
+	delta = 0;
+	while (delta < t)
+	{
+		delta = get_time_in_ms() - start;
+		usleep(100);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:37:46 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/30 00:37:21 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/31 21:15:45 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_ph
 	t_data			*data;
 }				t_ph;
 
+void			f_sleep(int t);
 int				ft_atoi(char *str);
 int				ft_isdigit(int c);
 void			ft_putchar_fd(char c, int fd);

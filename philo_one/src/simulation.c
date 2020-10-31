@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 14:04:02 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/30 00:37:48 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/31 21:13:41 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int		take_forks_assist(t_ph *ph, int ffork, int sfork)
 	if (ph->data->num_of_ph == 1)
 	{
 		while (!ph->data->ph_died)
-			usleep(1000);
+			usleep(100);
 		return (1);
 	}
 	pthread_mutex_lock(&ph->data->mtx_forks[sfork]);
@@ -75,7 +75,7 @@ static void		take_forks_and_eat(t_ph *ph)
 	pthread_mutex_lock(&ph->data->mtx_time);
 	ph->eat_last_time = get_time_in_ms();
 	pthread_mutex_unlock(&ph->data->mtx_time);
-	usleep(ph->data->time_to_eat * 1000);
+	f_sleep(ph->data->time_to_eat);
 	pthread_mutex_unlock(&ph->data->mtx_forks[forks[0]]);
 	pthread_mutex_unlock(&ph->data->mtx_forks[forks[1]]);
 }
@@ -86,10 +86,10 @@ static void		*check_death(void *arg)
 
 	ph = (t_ph*)arg;
 	pthread_mutex_lock(&ph->data->mtx_time);
-	while (get_time_in_ms() - ph->eat_last_time < ph->data->time_to_die)
+	while (get_time_in_ms() - ph->eat_last_time <= ph->data->time_to_die)
 	{
 		pthread_mutex_unlock(&ph->data->mtx_time);
-		usleep(1000);
+		usleep(100);
 		pthread_mutex_lock(&ph->data->mtx_time);
 	}
 	pthread_mutex_unlock(&ph->data->mtx_time);
@@ -124,7 +124,7 @@ void			*simulation(void *arg)
 		if (ph->times_to_eat > 0)
 			ph->times_to_eat--;
 		print_msg(ph, "is sleeping\n");
-		usleep(ph->data->time_to_sleep * 1000);
+		f_sleep(ph->data->time_to_sleep);
 		if (ph->data->ph_died)
 			break ;
 		print_msg(ph, "is thinking\n");
