@@ -6,7 +6,7 @@
 #    By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 16:58:34 by awerebea          #+#    #+#              #
-#    Updated: 2020/10/30 18:29:17 by awerebea         ###   ########.fr        #
+#    Updated: 2020/10/31 21:19:49 by awerebea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,14 @@ FLS_1		= $(addprefix $(FLSDIR_1), \
 				simulation )
 FLSDIR_2	= tools/
 FLS_2		= $(addprefix $(FLSDIR_2), \
+				f_sleep \
 				ft_atoi \
 				ft_isdigit \
 				ft_itoa \
 				ft_putchar_fd \
 				ft_putnbr_fd \
 				ft_putstr_fd \
+				ft_strncmp \
 				get_time_in_ms )
 
 SRC	= $(FLS_1) $(FLS_2)

@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:47:32 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/30 22:07:57 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/10/31 18:27:53 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,7 @@ static int		process_create(t_data *data, t_ph *ph, int i)
 	if ((pid = fork()) < 0)
 		return (1);
 	else if (!pid)
-	{
 		simulation(ph);
-		while (1)
-			usleep(1000);
-	}
 	else
 		data->pid[i] = pid;
 	return (0);
@@ -96,7 +92,7 @@ int				start_processes(t_data *data)
 		return (1);
 	sem_wait(data->sem_finish);
 	kill_processes(data);
-	/* free(ph);        */
-	/* free(data->pid); */
+	free(ph);
+	free(data->pid);
 	return (0);
 }
