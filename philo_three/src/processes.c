@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:47:32 by awerebea          #+#    #+#             */
-/*   Updated: 2020/11/01 12:14:06 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/11/01 13:47:44 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,14 @@
 
 static int		init_ph(t_data *data, t_ph *ph, int i)
 {
-	char		*index;
-
-	index = NULL;
-	if (!(index = ft_itoa(i)))
-		return (1);
-	sem_unlink(index);
-	if ((ph->sem_finish = sem_open(index, O_CREAT, 0660, 0)) == SEM_FAILED)
+	sem_unlink("ph_finish");
+	if ((ph->sem_finish = sem_open("ph_finish", O_CREAT, 0660, 0)) \
+			== SEM_FAILED)
 		return (1);
 	ph->id = i + 1;
 	ph->times_to_eat = data->times_to_eat;
 	ph->data = data;
 	ph->ph_died = 0;
-	free(index);
 	return (0);
 }
 
@@ -42,7 +37,11 @@ static int		process_create(t_data *data, t_ph *ph, int i)
 	if ((pid = fork()) < 0)
 		return (1);
 	else if (!pid)
+	{
 		simulation(ph);
+		while (1)
+			usleep(1000);
+	}
 	else
 		data->pid[i] = pid;
 	return (0);
@@ -91,6 +90,9 @@ int				start_processes(t_data *data)
 		return (1);
 	sem_wait(data->sem_finish);
 	kill_processes(data);
+	i = -1;
+	while (++i < data->num_of_ph)
+		sem_close(ph[i].sem_finish);
 	free(ph);
 	free(data->pid);
 	return (0);
