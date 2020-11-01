@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:36:48 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/31 18:24:16 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/11/01 12:33:31 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int		init_data(t_data *data, char **argv)
 	data->pid = NULL;
 	if (sem_unlink("waiter") || sem_unlink("forks") || sem_unlink("death") || \
 		sem_unlink("print") || sem_unlink("time") || sem_unlink("finish"))
-		return (1);
+		NULL;
 	if ((data->sem_waiter = sem_open("waiter", O_CREAT, 0660, 1)) == SEM_FAILED)
 		return (1);
 	if ((data->sem_forks = sem_open("forks", O_CREAT, 0660, data->num_of_ph)) \

@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:47:32 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/31 18:27:53 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/11/01 12:14:06 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static int		init_ph(t_data *data, t_ph *ph, int i)
 	index = NULL;
 	if (!(index = ft_itoa(i)))
 		return (1);
-	if (sem_unlink(index))
-		return (1);
+	sem_unlink(index);
 	if ((ph->sem_finish = sem_open(index, O_CREAT, 0660, 0)) == SEM_FAILED)
 		return (1);
 	ph->id = i + 1;
