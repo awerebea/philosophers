@@ -6,7 +6,7 @@
 #    By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/30 16:58:34 by awerebea          #+#    #+#              #
-#    Updated: 2020/10/31 21:19:49 by awerebea         ###   ########.fr        #
+#    Updated: 2020/11/01 12:41:54 by awerebea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,13 +68,13 @@ debug:
 	make FLAGS="$(CFLAGS) $(DBGFLAGS)" all
 
 run: all
-	./$(NAME) 20 200 75 75
+	./$(NAME) 5 800 200 200
 
 test: debug
-	./$(NAME) 20 200 75 75
+	./$(NAME) 5 800 200 200
 
 test_valgrind: debug
-	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 50 200 50 50 8
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 5 800 200 200 7
 
 re:	fclean all
 
