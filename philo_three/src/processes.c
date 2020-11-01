@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:47:32 by awerebea          #+#    #+#             */
-/*   Updated: 2020/11/01 13:47:44 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/11/01 14:03:59 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int		init_ph(t_data *data, t_ph *ph, int i)
 	ph->id = i + 1;
 	ph->times_to_eat = data->times_to_eat;
 	ph->data = data;
-	ph->ph_died = 0;
 	return (0);
 }
 

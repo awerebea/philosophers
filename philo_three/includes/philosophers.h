@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:37:46 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/31 21:16:03 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/11/01 14:08:47 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct	s_data
 	pid_t		*pid;
 	sem_t		*sem_waiter;
 	sem_t		*sem_forks;
-	sem_t		*sem_death;
 	sem_t		*sem_print;
 	sem_t		*sem_time;
 	sem_t		*sem_finish;
@@ -37,7 +36,6 @@ typedef struct	s_ph
 	int			simulation_start_time;
 	int			eat_last_time;
 	int			times_to_eat;
-	int			ph_died;
 	sem_t		*sem_finish;
 	t_data		*data;
 }				t_ph;

@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:36:48 by awerebea          #+#    #+#             */
-/*   Updated: 2020/11/01 12:33:31 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/11/01 14:11:02 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ static int		init_data(t_data *data, char **argv)
 	data->time_to_sleep = ft_atoi(argv[4]);
 	data->times_to_eat = (argv[5]) ? ft_atoi(argv[5]) : -1;
 	data->pid = NULL;
-	if (sem_unlink("waiter") || sem_unlink("forks") || sem_unlink("death") || \
-		sem_unlink("print") || sem_unlink("time") || sem_unlink("finish"))
-		NULL;
+	sem_unlink("waiter");
+	sem_unlink("forks");
+	sem_unlink("print");
+	sem_unlink("time");
+	sem_unlink("finish");
 	if ((data->sem_waiter = sem_open("waiter", O_CREAT, 0660, 1)) == SEM_FAILED)
 		return (1);
 	if ((data->sem_forks = sem_open("forks", O_CREAT, 0660, data->num_of_ph)) \
 			== SEM_FAILED)
-		return (1);
-	if ((data->sem_death = sem_open("death", O_CREAT, 0660, 1)) == SEM_FAILED)
 		return (1);
 	if ((data->sem_print = sem_open("print", O_CREAT, 0660, 1)) == SEM_FAILED)
 		return (1);
@@ -105,8 +105,6 @@ int				main(int argc, char **argv)
 	if (sem_close(data.sem_waiter))
 		return (1);
 	if (sem_close(data.sem_forks))
-		return (1);
-	if (sem_close(data.sem_death))
 		return (1);
 	if (sem_close(data.sem_print))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 14:04:02 by awerebea          #+#    #+#             */
-/*   Updated: 2020/10/31 21:28:15 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/11/01 14:10:35 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,8 @@ static int		take_forks_assist(t_ph *ph)
 {
 	sem_wait(ph->data->sem_waiter);
 	sem_wait(ph->data->sem_forks);
-	if (ph->ph_died)
-		return (1);
 	print_msg(ph, "has taken a fork\n");
 	sem_wait(ph->data->sem_forks);
-	if (ph->ph_died)
-		return (1);
 	print_msg(ph, "has taken a fork\n");
 	sem_post(ph->data->sem_waiter);
 	return (0);
@@ -44,8 +40,6 @@ static int		take_forks_assist(t_ph *ph)
 static void		take_forks_and_eat(t_ph *ph)
 {
 	if (take_forks_assist(ph))
-		return ;
-	if (ph->ph_died)
 		return ;
 	print_msg(ph, "is eating\n");
 	sem_wait(ph->data->sem_time);
@@ -74,9 +68,7 @@ static void		*check_death(void *arg)
 		sem_post(ph->sem_finish);
 		return (NULL);
 	}
-	sem_wait(ph->data->sem_death);
 	print_msg(ph, "is died\n");
-	ph->ph_died = 1;
 	sem_post(ph->data->sem_finish);
 	return (NULL);
 }
@@ -92,17 +84,11 @@ void			*simulation(void *arg)
 	pthread_create(&death_thread, NULL, check_death, ph);
 	while (ph->times_to_eat)
 	{
-		if (ph->ph_died)
-			break ;
 		take_forks_and_eat(ph);
-		if (ph->ph_died)
-			break ;
 		if (ph->times_to_eat > 0)
 			ph->times_to_eat--;
 		print_msg(ph, "is sleeping\n");
 		f_sleep(ph->data->time_to_sleep);
-		if (ph->ph_died)
-			break ;
 		print_msg(ph, "is thinking\n");
 	}
 	pthread_join(death_thread, NULL);
