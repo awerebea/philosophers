@@ -6,7 +6,7 @@
 /*   By: awerebea <awerebea@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 23:47:32 by awerebea          #+#    #+#             */
-/*   Updated: 2020/11/01 14:03:59 by awerebea         ###   ########.fr       */
+/*   Updated: 2020/11/02 13:50:23 by awerebea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,6 @@ int				start_processes(t_data *data)
 		return (1);
 	sem_wait(data->sem_finish);
 	kill_processes(data);
-	i = -1;
-	while (++i < data->num_of_ph)
-		sem_close(ph[i].sem_finish);
 	free(ph);
 	free(data->pid);
 	return (0);
